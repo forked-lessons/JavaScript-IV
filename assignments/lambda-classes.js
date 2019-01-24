@@ -49,14 +49,17 @@ class Student extends Person {
 
 // Class Project Managers
 
-class ProjectManager extends Person {
+class ProjectManager extends Instructor {
     constructor(pmAttr) {
         super(pmAttr);
         this.gradClassName = pmAttr.gradClassName;
         this.favInstructor = pmAttr.favInstructor;
     }
     standUp(channel) {
-        console.log(`${name} announces to ${channel} standy times!`);
+        console.log(this.name + "announces to " + channel + "standy times!");
+    }
+    debugsCode(student) {
+        console.log(`${name}'s debugs student}'s code.`)
     }
 }
 
@@ -86,11 +89,34 @@ const daniel = new Student({
     favSubjects: ['Machine Learning', 'React'],
 });
 
+const john = new ProjectManager({
+    name: 'John',
+    location: 'Austin',
+    age: 42,
+    gender: 'male',
+    favLanguage: 'Python',
+    specialty: 'Machine Learning',
+    catchPhrase: `You can pickle that!`,
+    gradClassName: 'CS1',
+    favInstructor: 'Josh Knell',
+});
+
+
 //console logs
+
+Instructor
 console.log(fred.demo("React"))
 console.log(fred.age);
+console.log(fred.catchPhrase);
+//Student
 console.log(daniel.name);
 console.log(daniel.previousBackground);
 console.log(daniel.sprintChallenge('JavaScript'));
 console.log(daniel.listSubjects());
+//Project Manager
+console.log(john.name);
+console.log(john.catchPhrase);
+console.log(john.gradClassName);
+console.log(john.debugsCode('john'));
+console.log(john.standUp('web17'));
 
