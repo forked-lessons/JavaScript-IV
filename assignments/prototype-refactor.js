@@ -30,9 +30,9 @@ Prototype Refactor
 //     this.createdAt = GameObjectAttributes.createdAt;
 //     this.dimensions = GameObjectAttributes.dimensions;
 // }
-// Class 
+// Class GameObject
 
-new class GameObject {
+class GameObject {
     constructor(GameObjectAttributes) {
         this.createdAt = GameObjectAttributes.createdAt;
         this.dimensions = GameObjectAttributes.dimensions;
@@ -58,21 +58,33 @@ new class GameObject {
 
 //Build Constructor
 
-function CharacterStats(CharacterStatsAttributes) {
-    this.healthPoints = CharacterStatsAttributes.healthPoints;
-    this.name = CharacterStatsAttributes.name;
-    GameObject.call(this, CharacterStatsAttributes);
+// function CharacterStats(CharacterStatsAttributes) {
+//     this.healthPoints = CharacterStatsAttributes.healthPoints;
+//     this.name = CharacterStatsAttributes.name;
+//     GameObject.call(this, CharacterStatsAttributes);
+// }
+
+// //Inheritance
+// CharacterStats.prototype = Object.create(GameObject.prototype);
+
+// //prototype methods here
+
+// CharacterStats.prototype.takeDamage = function () {
+//     return `${this.name} took damage.`;
+// }
+
+// Class CharacterStats
+class CharacterStats extends GameObject {
+    constructor(CharacterStatsAttributes) {
+        super(CharacterStatsAttributes);
+        this.healthPoints = CharacterStatsAttributes.healthPoints;
+        this.name = CharacterStatsAttributes.name;
+    };
+    // Class Methods
+    takeDamage() {
+        return `${this.name} took damage.`;
+    };
 }
-
-//Inheritance
-CharacterStats.prototype = Object.create(GameObject.prototype);
-
-//prototype methods here
-
-CharacterStats.prototype.takeDamage = function () {
-    return `${this.name} took damage.`;
-}
-
 /*
   === Humanoid (Having an appearance or character resembling that of a human.) ===
   * team
@@ -85,23 +97,37 @@ CharacterStats.prototype.takeDamage = function () {
 
 //Humaniod Constructor here
 
-function Humanoid(humanoidAttributes) {
-    this.team = humanoidAttributes.team;
-    this.weapons = humanoidAttributes.weapons;
-    this.language = humanoidAttributes.language;
-    CharacterStats.call(this, humanoidAttributes);
+// function Humanoid(humanoidAttributes) {
+//     this.team = humanoidAttributes.team;
+//     this.weapons = humanoidAttributes.weapons;
+//     this.language = humanoidAttributes.language;
+//     CharacterStats.call(this, humanoidAttributes);
 
+// }
+
+// //Humaniod prototype inheritance 
+
+// Humanoid.prototype = Object.create(CharacterStats.prototype);
+
+// //prototype methods here
+// Humanoid.prototype.greet = function () {
+//     return ` ${this.name} offers a greeting in ${this.language}.`
+// }
+
+// Class Humaniod
+
+
+class Humanoid extends CharacterStats {
+    constructor(humanoidAttributes) {
+        super(humanoidAttributes);
+        this.team = humanoidAttributes.team;
+        this.weapons = humanoidAttributes.weapons;
+        this.language = humanoidAttributes.language;
+    }
+    greet() {
+        return ` ${this.name} offers a greeting in ${this.language}.`
+    }
 }
-
-//Humaniod prototype inheritance 
-
-Humanoid.prototype = Object.create(CharacterStats.prototype);
-
-//prototype methods here
-Humanoid.prototype.greet = function () {
-    return ` ${this.name} offers a greeting in ${this.language}.`
-}
-
 /*
   * Inheritance chain: GameObject -> CharacterStats -> Humanoid
   * Instances of Humanoid should have all of the same properties as CharacterStats and GameObject.
@@ -180,45 +206,45 @@ console.log(swordsman.destroy()); // Sir Mustachio was removed from the game.
 //Villain = Clutter
 //Constructor Function
 
-function Villain(villainAttributes) {
-    this.opponentHealth = villainAttributes.opponentHealth;
-    this.sentimentalAttack = villainAttributes.sentimentalAttack;
-    CharacterStats.call(this, villainAttributes);
-}
+// function Villain(villainAttributes) {
+//     this.opponentHealth = villainAttributes.opponentHealth;
+//     this.sentimentalAttack = villainAttributes.sentimentalAttack;
+//     CharacterStats.call(this, villainAttributes);
+// }
 
-//Inheritance
-Villain.prototype = Object.create(Humanoid.prototype);
+// //Inheritance
+// Villain.prototype = Object.create(Humanoid.prototype);
 
-// METHODS
+// // METHODS
 
-Villain.prototype.attack = function () {
-    this.opponentHealth -= 10;
-    return `The Clutter overwhelms you as you look through pictures of your childhood family vacations.`;
-};
+// Villain.prototype.attack = function () {
+//     this.opponentHealth -= 10;
+//     return `The Clutter overwhelms you as you look through pictures of your childhood family vacations.`;
+// };
 
 
-//Hero = Marie Kondo
-//Constructor Function
+// //Hero = Marie Kondo
+// //Constructor Function
 
-function Hero(heroAttributes) {
-    this.opponentHealth = heroAttributes.opponentHealth;
-    CharacterStats.call(this, heroAttributes);
-}
+// function Hero(heroAttributes) {
+//     this.opponentHealth = heroAttributes.opponentHealth;
+//     CharacterStats.call(this, heroAttributes);
+// }
 
-//Inheritance
-Hero.prototype = Object.create(Humanoid.prototype);
+// //Inheritance
+// Hero.prototype = Object.create(Humanoid.prototype);
 
-// METHODS
+// // METHODS
 
-Hero.prototype.joy = function () {
-    this.opponentHealth -= 10;
-    return `Does this item bring you joy?`;
-};
+// Hero.prototype.joy = function () {
+//     this.opponentHealth -= 10;
+//     return `Does this item bring you joy?`;
+// };
 
-Hero.prototype.letItGo = function () {
-    this.opponentHealth -= 40;
-    return `Thank it and let it go.`;
-};
+// Hero.prototype.letItGo = function () {
+//     this.opponentHealth -= 40;
+//     return `Thank it and let it go.`;
+// };
 
 // * Give the Hero and Villains different methods that could be used to remove health points from objects which could result in destruction if health gets to 0 or drops below 0;
 //METHODS HERE
@@ -226,50 +252,50 @@ Hero.prototype.letItGo = function () {
 // * Create two new objects, one a villain and one a hero and fight it out with methods!
 
 //Marie Kondo
-const minimalist = new Hero({
-    createdAt: new Date(),
-    dimensions: {
-        length: 1,
-        width: 1,
-        height: 1,
-    },
-    healthPoints: 100,
-    opponentHealth: 50,
-    name: 'Marie Kondo',
-    team: 'Clean Sweep',
-    weapons: [
-        'Joy',
-        ' Thank it and let it go.',
-    ],
-    language: 'Japanese',
-});
+// const minimalist = new Hero({
+//     createdAt: new Date(),
+//     dimensions: {
+//         length: 1,
+//         width: 1,
+//         height: 1,
+//     },
+//     healthPoints: 100,
+//     opponentHealth: 50,
+//     name: 'Marie Kondo',
+//     team: 'Clean Sweep',
+//     weapons: [
+//         'Joy',
+//         ' Thank it and let it go.',
+//     ],
+//     language: 'Japanese',
+// });
 
-//Clutter
-const clutter = new Villain({
-    createdAt: new Date(),
-    dimensions: {
-        length: 10,
-        width: 10,
-        height: 10,
-    },
-    healthPoints: 50,
-    opponentHealth: 100,
-    name: 'A heap of Junk',
-    team: 'Hoarder',
-    weapons: [
-        'Oh thats where that was',
-        ' Sentimental Value',
-    ],
-    language: 'Earthly Attachment',
-});
+// //Clutter
+// const clutter = new Villain({
+//     createdAt: new Date(),
+//     dimensions: {
+//         length: 10,
+//         width: 10,
+//         height: 10,
+//     },
+//     healthPoints: 50,
+//     opponentHealth: 100,
+//     name: 'A heap of Junk',
+//     team: 'Hoarder',
+//     weapons: [
+//         'Oh thats where that was',
+//         ' Sentimental Value',
+//     ],
+//     language: 'Earthly Attachment',
+// });
 
-console.log("Lets get ready to rumbleeeeeee!!!!!")
-console.log(`Today ${minimalist.name} will take on a new home filled with ${clutter.name}, will she thank it and let it go, or will it overwhelm her?`);
-console.log(clutter.attack())
-console.log(`${minimalist.name} has been overwhelmed, ${minimalist.name} now has ${minimalist.opponentHealth} hp.`);
-console.log(`${minimalist.name} looks at the ${clutter.name} and uses: ${minimalist.joy()}`);
-console.log(`${clutter.name}\'s hp has been reduced, ${clutter.name} now has ${clutter.opponentHealth} hp.`);
-console.log(`${minimalist.name} prepares her finishing move.`)
-console.log(`${minimalist.name} looks at ${clutter.name} and uses: ${minimalist.letItGo()}`);
-console.log(`The attack is SUPER EFFECTIVE! ${clutter.name}\'s hp has been reduced, ${clutter.name} now has ${minimalist.opponentHealth} hp.`);
-console.log(`${clutter.name} has been defeated. ${minimalist.name} is victorious in tidying up another home! `)
+// console.log("Lets get ready to rumbleeeeeee!!!!!")
+// console.log(`Today ${minimalist.name} will take on a new home filled with ${clutter.name}, will she thank it and let it go, or will it overwhelm her?`);
+// console.log(clutter.attack())
+// console.log(`${minimalist.name} has been overwhelmed, ${minimalist.name} now has ${minimalist.opponentHealth} hp.`);
+// console.log(`${minimalist.name} looks at the ${clutter.name} and uses: ${minimalist.joy()}`);
+// console.log(`${clutter.name}\'s hp has been reduced, ${clutter.name} now has ${clutter.opponentHealth} hp.`);
+// console.log(`${minimalist.name} prepares her finishing move.`)
+// console.log(`${minimalist.name} looks at ${clutter.name} and uses: ${minimalist.letItGo()}`);
+// console.log(`The attack is SUPER EFFECTIVE! ${clutter.name}\'s hp has been reduced, ${clutter.name} now has ${minimalist.opponentHealth} hp.`);
+// console.log(`${clutter.name} has been defeated. ${minimalist.name} is victorious in tidying up another home! `)
