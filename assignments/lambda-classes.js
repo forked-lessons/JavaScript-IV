@@ -42,17 +42,28 @@ class Student extends Person {
     prassignment(subject) {
         console.log(`The ${Student.name} has submitted a PR for ${subject}.`);
     }
-    sprintChallenge() {
+    sprintChallenge(subject) {
         console.log(`The student has begun sprint challenge on ${subject}.`)
     }
 }
 
 // Class Project Managers
 
+class ProjectManager extends Person {
+    constructor(pmAttr) {
+        super(pmAttr);
+        this.gradClassName = pmAttr.gradClassName;
+        this.favInstructor = pmAttr.favInstructor;
+    }
+    standUp(channel) {
+        console.log(`${name} announces to ${channel} standy times!`);
+    }
+}
 
 // Test People
 
 // Instructor
+
 const fred = new Instructor({
     name: 'Fred',
     location: 'Bedrock',
@@ -64,12 +75,22 @@ const fred = new Instructor({
 });
 
 // Student
-const john = new Student({
+
+const daniel = new Student({
     name: 'Daniel',
     location: 'Seattle',
     age: 29,
     gender: 'male',
     previousBackground: 'Bartender',
     className: 'FSW17',
-    favSubjects: 'Machine Learning',
+    favSubjects: ['Machine Learning', 'React'],
 });
+
+//console logs
+console.log(fred.demo("React"))
+console.log(fred.age);
+console.log(daniel.name);
+console.log(daniel.previousBackground);
+console.log(daniel.sprintChallenge('JavaScript'));
+console.log(daniel.listSubjects());
+
