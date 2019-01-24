@@ -1,5 +1,6 @@
 // CODE here for your Lambda Classes
-// Class Person
+
+// =================== Classes ===================
 
 class Person {
     constructor(Personattr) {
@@ -37,7 +38,8 @@ class Student extends Person {
         this.favSubjects = StudentAttr.favSubjects;
     }
     listSubjects() {
-        console.log(this.favSubjects);
+        let newArr = this.favSubjects.join(" , ")
+        console.log(newArr);
     }
     prassignment(subject) {
         console.log(`The ${Student.name} has submitted a PR for ${subject}.`);
@@ -63,7 +65,7 @@ class ProjectManager extends Instructor {
     }
 }
 
-// Test People
+// =================== Test People ===================
 
 // Instructor
 
@@ -86,8 +88,10 @@ const daniel = new Student({
     gender: 'male',
     previousBackground: 'Bartender',
     className: 'FSW17',
-    favSubjects: ['Machine Learning', 'React'],
+    favSubjects: ['Machine Learning', 'React, and Web Scraping'],
 });
+
+// Project Manager
 
 const john = new ProjectManager({
     name: 'John',
@@ -102,18 +106,23 @@ const john = new ProjectManager({
 });
 
 
-//console logs
+// =================== Tests ===================
 
-Instructor
-console.log(fred.demo("React"))
+// Instructor
+
+console.log(fred.demo("React"));
 console.log(fred.age);
 console.log(fred.catchPhrase);
-//Student
+
+// Student
+
 console.log(daniel.name);
 console.log(daniel.previousBackground);
-console.log(daniel.sprintChallenge('JavaScript'));
+daniel.sprintChallenge('JavaScript');
 console.log(daniel.listSubjects());
-//Project Manager
+
+// Project Manager
+
 console.log(john.name);
 console.log(john.catchPhrase);
 console.log(john.gradClassName);
