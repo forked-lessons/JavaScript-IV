@@ -147,10 +147,7 @@ const mage = new Humanoid({
     healthPoints: 5,
     name: 'Bruce',
     team: 'Mage Guild',
-    weapons: [
-        'Staff of Shamalama',
-        'another wep'
-    ],
+    weapons: 'Staff of Shamalama',
     language: 'Common Tongue',
 });
 
